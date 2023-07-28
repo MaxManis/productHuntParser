@@ -1,8 +1,9 @@
 module.exports = {
-  VERSION: '0.4.1-Beta',
+  VERSION: '0.4.3-Beta',
   FILES_DIR_NAME: 'files',
   CONFIG_DIR_NAME: 'config',
   NO_DATA_FILENAME: 'appsNoData.json',
+  DATA_DIR_NAME: 'data',
   NO_DATA_STRING: '<NO-DATA>',
   graphql: {
     mainUrl: 'https://www.producthunt.com/frontend/graphql',

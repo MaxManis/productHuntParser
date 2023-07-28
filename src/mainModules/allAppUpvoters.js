@@ -7,11 +7,11 @@ const cliProgress = require('cli-progress');
 const { stringify } = require('../helpers/csvStringify');
 const { writeCsvFile } = require('../helpers/writeCsvFile');
 
-const { graphql, colors } = require('../config/config');
+const { graphql, colors, NO_DATA_STRING } = require('../config/config');
 const { mainUrl, commonHeaders } = graphql;
 
 const today = new Date().toLocaleDateString().replace(/\//gi, '_');
-const nd = '<NO-DATA>';
+const nd = NO_DATA_STRING;
 const bar = new cliProgress.SingleBar({}, cliProgress.Presets.shades_classic);
 
 function usersToCsv(users, postId) {

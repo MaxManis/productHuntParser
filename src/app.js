@@ -11,7 +11,7 @@ const { getAllNewProducts } = require('./mainModules/newProduct');
 const { getAllTodayApps } = require('./mainModules/todayApps');
 
 // Config:
-const { FILES_DIR_NAME, VERSION, colors } = require('./config/config');
+const { FILES_DIR_NAME, DATA_DIR_NAME, VERSION, colors } = require('./config/config');
 
 const app = async () => {
   // Clear the window before run:
@@ -23,6 +23,11 @@ const app = async () => {
   if (!fs.existsSync(checkDir)){
       fs.mkdirSync(checkDir);
   }
+  // Create /files/data dir if it doesnt exists:
+  const checkDataDir = path.join(process.execPath, '..', FILES_DIR_NAME, DATA_DIR_NAME);
+  if (!fs.existsSync(checkDataDir)){
+      fs.mkdirSync(checkDataDir);
+  }
 
   const logoPath = path.join(__dirname, 'assets/parserLogo.txt');
   const logo = fs.readFileSync(logoPath, { encoding: 'utf-8' });
@@ -33,9 +38,9 @@ const app = async () => {
 
   console.log("\x1b[33m", ''); // set color to Yellow
   console.log('Choose what do you wand to do:');
-  console.log('1. Get App\'s Upvoters     => [ Beta ]');
-  console.log('2. Get all Today Apps     => [ Beta ]');
-  console.log('3. Get all Upcomming Apps => [IN-DEV]');
+  console.log('1. Get App\'s Upvoters        => [ Beta ]');
+  console.log('2. Get all Today Apps        => [ Beta ]');
+  console.log('3. Get all Upcomming Apps    => [ Beta ]');
   console.log('=======>');
   console.log('or type \"s\" or \"e\" to Stop/Exit');
   console.log('=======>');
@@ -73,8 +78,8 @@ const app = async () => {
       break;
     case '3':
       // NOTE: IN-DEV;
-      console.log(colors.Red, 'SORRY! This feature is in development now!');
-      return;
+      //console.log(colors.Red, 'SORRY! This feature is in development now!');
+      //return;
 
       console.log('Looking for all Upcomming Apps...');
        

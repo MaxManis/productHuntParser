@@ -38,7 +38,7 @@ const getAllTodayApps = async () => {
   const etaColor = colors.white('{duration} => {eta}');
   const appColor = colors.redBright('App: {appName}')
   const bar = new cliProgress.SingleBar({
-    format: `Getting data | ${barColor} | ${valueColor} | ${etaColor} | ${appColor}`,
+    format: `Parsing | ${barColor} | ${valueColor} | ${etaColor} | ${appColor}`,
       barCompleteChar: '\u2588',
       barIncompleteChar: '\u2591',
       hideCursor: true,
@@ -57,7 +57,7 @@ const getAllTodayApps = async () => {
     const allTodayAppsData = await allTodayAppsDataRaw.json();
     allTodayApps.push(...allTodayAppsData.data.homefeed.edges[0].node.items);
 
-    console.log(allTodayApps.length + ' apps found!');
+    console.log(col.Blue + col.and + col.Reset, allTodayApps.length + ' apps found!');
     console.log(col.Blue + col.and + col.Reset, 'IS IT GOOD ENOUGH?');
 
     bar.start(allTodayApps.length, barSatus, {
@@ -66,11 +66,26 @@ const getAllTodayApps = async () => {
 
     for (const app of allTodayApps) {
       if (!app) {
-        console.log('NO-DATA:');
-        console.log(app);
+        // console.log('NO-DATA:');
+        // console.log(app);
+        barSatus += 1;
         continue;
       }
-      const urlToGetAppHTML = 'https://www.producthunt.com/posts/' + (app.slug || app.post.slug);
+
+      let appSlug = null;
+      if (app.slug) {
+        appSlug = app.slug;
+      } else if (app.post && app.post.slug) {
+        appSlug = app.post.slug;
+      }
+
+      if (!appSlug) {
+        // console.log('NO_SLUG_FOUND');
+        barSatus += 1;
+        continue;
+      }
+
+      const urlToGetAppHTML = 'https://www.producthunt.com/posts/' + appSlug;
       const appId = app.id;
 
       barSatus += 1;
@@ -94,7 +109,12 @@ const getAllTodayApps = async () => {
         continue;
       }
 
-      const firstContributor = appData.data.post ? appData.data.post.contributors[0] : { user: { name: null, username: null } };
+      let firstContributor = appData.data.post
+        ? appData.data.post.contributors.find(con => con.role === 'maker' || con.role === 'hunter_and_maker')
+        : undefined;
+      if (!firstContributor) {
+        firstContributor = { user: { name: null, username: null } };
+      }
 
       const nd = NO_DATA_STRING;
       const res = {

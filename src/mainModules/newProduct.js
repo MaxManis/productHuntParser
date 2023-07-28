@@ -12,7 +12,7 @@ const { isFirstLaunch } = require('../helpers/isFirstLaunch');
 const { getProductData } = require('../helpers/getProductData');
 const { jsonToCsv } = require('../helpers/jsonToCsv');
 const { uniqObjInArray } = require('../helpers/uniqObjInArray');
-const { CONFIG_DIR_NAME, FILES_DIR_NAME, NO_DATA_FILENAME } = require('../config/config');
+const { CONFIG_DIR_NAME, FILES_DIR_NAME, DATA_DIR_NAME, NO_DATA_FILENAME } = require('../config/config');
 
 const getAllNewProducts = async () => {
   const allApps = [];
@@ -24,7 +24,7 @@ const getAllNewProducts = async () => {
   const etaColor = colors.white('{duration} => {eta}');
   const appColor = colors.redBright('App: {appName}')
   const bar = new cliProgress.SingleBar({
-    format: `Getting data | ${barColor} | ${valueColor} | ${etaColor} | ${appColor}`,
+    format: `Parsing | ${barColor} | ${valueColor} | ${etaColor} | ${appColor}`,
       barCompleteChar: '\u2588',
       barIncompleteChar: '\u2591',
       hideCursor: true,
@@ -35,9 +35,12 @@ const getAllNewProducts = async () => {
     const allNewProducts = await getAllProducts();
 
     // TODO: Also get all apps from noDataFile and check info for them here:
-    const noDataFileNamePrev = path.join(__dirname, CONFIG_DIR_NAME, NO_DATA_FILENAME);
-    const prevNoData = JSON.parse(fs.readFileSync(noDataFileNamePrev, { encoding: 'utf-8' }));
-    fs.rmSync(noDataFileNamePrev);
+    const noDataFilePath = path.join(process.execPath, '..', FILES_DIR_NAME, DATA_DIR_NAME, NO_DATA_FILENAME);
+    let prevNoData = [];
+    if (fs.existsSync(noDataFilePath)) {
+      prevNoData = JSON.parse(fs.readFileSync(noDataFilePath, { encoding: 'utf-8' }));
+      fs.rmSync(noDataFilePath);
+    }
 
     const allProducts = uniqObjInArray([...allNewProducts, ...prevNoData]);
 
@@ -112,26 +115,21 @@ const getAllNewProducts = async () => {
     }
 
     bar.stop();
-    console.log('Product data fetched successfuly, moving to files: ' + allApps.length + ' apps');
+    console.log('Product data fetched successfuly, moving to files: ' + appsWithData.length + ' apps');
 
     const csvData = jsonToCsv(appsWithData);
 
     const today = new Date().toLocaleDateString().replace(/\//gi, '_');
-    const jsonFileName = `allNewApps-${today}.json`;
     const csvFileName = `allNewApps-${today}.csv`;
-    const noDataFileName = `appsNoData-${today}.json`;
 
     // TODO: get apps from this file at the begining and check info for this apps:
-    const pathToNoDataJsonFile = path.join(__dirname, CONFIG_DIR_NAME, NO_DATA_FILENAME);
-    fs.writeFileSync(pathToNoDataJsonFile, JSON.stringify(appsNoData, null, 2));
+    fs.writeFileSync(noDataFilePath, JSON.stringify(appsNoData, null, 2));
     console.log('NoData file created!');
 
-    const pathToNewJsonFile = path.join(__dirname, FILES_DIR_NAME, jsonFileName);
-    const pathToNewCSVFile = path.join(__dirname, FILES_DIR_NAME, csvFileName);
-    fs.writeFileSync(pathToNewJsonFile, JSON.stringify(allApps, null, 2));
-    console.log('JSON file created!');
+    const pathToNewCSVFile = path.join(process.execPath, '..', FILES_DIR_NAME, csvFileName);
     fs.writeFileSync(pathToNewCSVFile, csvData);
     console.log('CSV file created!');
+
     console.log('DONE!');
   } catch (err) {
     console.error(err);
