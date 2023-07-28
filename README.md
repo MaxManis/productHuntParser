@@ -5,10 +5,12 @@ This App is created to parse some kind of data from the ProductHunt web-site. Th
 App provide an automation for sales-teams work with product hunt, it can collect a data for you with a higher speed and doesn't requeire a high tech skills to work with.
 
 ## DOWNLOAD
-| Version  | MacOS | Win | Linux |
-| -------- | ----- | --- | ------|
-| 0.4.1 Beta | `-` | `-` | `-`   |
-| 0.4.3 Beta | [0.4.3b-MAC](https://maxmanis.github.io/productHuntParser/release/phPareser-043b-mac.zip) | [0.4.3b-WIN](https://maxmanis.github.io/productHuntParser/release/phPareser-043b-win.zip) | `-` |
+> Chrome may mark the file as dangerous, just press the 'Keep file' option to download it.
+
+| Version  | MacOS | Win | Linux | Latest |
+| -------- | ----- | --- | ------ | ----- |
+| 0.4.1 Beta | `-` | `-` | `-`    |  :x: |
+| 0.4.3 Beta | [0.4.3b-MAC](https://maxmanis.github.io/productHuntParser/release/phPareser-043b-mac.zip) | [0.4.3b-WIN](https://maxmanis.github.io/productHuntParser/release/phPareser-043b-win.zip) | `-` | :white_check_mark: |
 
 ## INSTALL
 ### To run the parser 'app' file
