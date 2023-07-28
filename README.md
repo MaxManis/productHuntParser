@@ -13,6 +13,7 @@ App provide an automation for sales-teams work with product hunt, it can collect
 | 0.4.3 Beta | [0.4.3b-MAC](https://maxmanis.github.io/productHuntParser/release/phPareser-043b-mac.zip) | [0.4.3b-WIN](https://maxmanis.github.io/productHuntParser/release/phPareser-043b-win.zip) | `-` | :white_check_mark: |
 
 ## INSTALL
+### MacOS:
 ### To run the parser 'app' file
 ### Use 'install-mac.sh' file:
  - 1. Open the Terminal window on you Mac.
