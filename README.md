@@ -4,6 +4,12 @@
 This App is created to parse some kind of data from the ProductHunt web-site. The main goal is to help sales team works faster and spend less time on everyday things.
 App provide an automation for sales-teams work with product hunt, it can collect a data for you with a higher speed and doesn't requeire a high tech skills to work with.
 
+## DOWNLOAD
+| Version  | MacOS | Win | Linux |
+| -------- | ----- | --- | ------|
+| 0.4.1 Beta | `-` | `-` | `-`   |
+| 0.4.3 Beta | [0.4.3b-MAC](https://maxmanis.github.io/productHuntParser/release/phPareser-043b-mac.zip) | [0.4.3b-WIN](https://maxmanis.github.io/productHuntParser/release/phPareser-043b-win.zip) | `-` |
+
 ## INSTALL
 ### To run the parser 'app' file
 ### Use 'install-mac.sh' file:
