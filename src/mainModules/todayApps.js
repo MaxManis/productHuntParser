@@ -72,6 +72,13 @@ const getAllTodayApps = async () => {
         continue;
       }
 
+      // remove the promoted info and no-data threads:
+      const notAllowedTypes = ['AnthologiesStory', 'Ad', 'DiscussionThread'];
+      if (notAllowedTypes.includes(app.__typename)) {
+        barSatus += 1;
+        continue;
+      }
+
       let appSlug = null;
       if (app.slug) {
         appSlug = app.slug;
@@ -123,8 +130,8 @@ const getAllTodayApps = async () => {
         createdAt: app.createdAt || nd,
         votes: app.votesCount || nd,
         comments: app.commentsCount || nd,
-        name: app.name || nd, 
-        description: app.tagline || nd,
+        name: app.name ? app.name.replace(/,/gi, ' ') : nd, 
+        description: app.tagline ? app.tagline.replace(/,/gi, ' ') : nd,
         makerName: firstContributor.user.name || nd,
         makerUrl: firstContributor.user.username ? 'https://www.producthunt.com/@' + firstContributor.user.username : nd,
         url: urlToGetAppHTML || nd,
@@ -147,6 +154,7 @@ const getAllTodayApps = async () => {
     const baseFileNames = 'allTodayApps';
     const csvFileName = `${baseFileNames}-${today}.csv`;
 
+    // NOTE: To use it in debug/dev mode - pass the true as the third argumen to this function:
     writeCsvFile(stringify(csvData), csvFileName);
 
     console.log('CSV file created!');

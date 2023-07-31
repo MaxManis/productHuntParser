@@ -4,6 +4,7 @@ const fs = require('fs');
 //const { exec } = require("child_process");
 const util = require('node:util');
 const exec = util.promisify(require('node:child_process').exec)
+const inquirer = require('inquirer');
 
 // MainModules:
 const { allAppUpvoters } = require('./mainModules/allAppUpvoters');
@@ -15,6 +16,7 @@ const { FILES_DIR_NAME, DATA_DIR_NAME, VERSION, colors } = require('./config/con
 
 const app = async () => {
   // Clear the window before run:
+  // NOTE: Not sure this command works fine on Win -_-...
   const { stdout } = await exec('clear');
   console.log(stdout);
 
@@ -84,6 +86,28 @@ const app = async () => {
       console.log('Looking for all Upcomming Apps...');
        
       await getAllNewProducts();
+
+      break;
+    case '7':
+      console.log(colors.Red, 'Pashalka found))');
+      const answer = await inquirer
+        .prompt([
+          {
+            type: 'rawlist',
+            name: 'mode',
+            message: 'Choose your destiny:',
+            paginated : true,
+            choices: [
+              new inquirer.Separator('--- Get data:'),
+              { value: 'upvoters', name: 'App\'s Upvoters' },
+              { value: 'today', name: 'Today Apps' },
+              { value: 'upcoming', name: 'Upcomming Apps'},
+              new inquirer.Separator('---------'),
+              { value: 'exit', name: 'Stop/Exit'}
+            ],
+          },
+        ]);
+      console.log('New type of select: ', answer || '');
 
       break;
     case 'e':

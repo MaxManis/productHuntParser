@@ -10,7 +10,8 @@ App provide an automation for sales-teams work with product hunt, it can collect
 | Version  | MacOS | Win | Linux | Latest |
 | -------- | ----- | --- | ------ | ----- |
 | 0.4.1 Beta | `-` | `-` | `-`    |  :x: |
-| 0.4.3 Beta | [0.4.3b-MAC](https://maxmanis.github.io/productHuntParser/release/phPareser-043b-mac.zip) | [0.4.3b-WIN](https://maxmanis.github.io/productHuntParser/release/phPareser-043b-win.zip) | `-` | :white_check_mark: |
+| 0.4.3 Beta | [0.4.3b-MAC](https://maxmanis.github.io/productHuntParser/release/phPareser-043b-mac.zip) | [0.4.3b-WIN](https://maxmanis.github.io/productHuntParser/release/phPareser-043b-win.zip) | `-` | :x: |
+| 0.4.5 Beta | [0.4.3b-MAC](https://maxmanis.github.io/productHuntParser/release/phPareser-043b-mac.zip) | [0.4.3b-WIN](https://maxmanis.github.io/productHuntParser/release/phPareser-043b-win.zip) | `-` | :white_check_mark: |
 
 ## INSTALL
 ### MacOS:
